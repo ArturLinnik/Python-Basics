@@ -1,4 +1,6 @@
 
+# Objective: Create a list with the repeated elements of two lists.
+
 import random
 
 # Generate two random lists with a length between 0 and 10 and random integers between 1 and 9

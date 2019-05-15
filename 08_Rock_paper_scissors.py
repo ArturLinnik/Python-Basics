@@ -1,4 +1,6 @@
 
+# Objective: Rock Paper Scissors game vs a friend.
+
 print("Welcome to the 'Rock Paper Scissors' game")
 
 start = "yes"   # Variable to play again

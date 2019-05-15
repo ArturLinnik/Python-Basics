@@ -1,5 +1,5 @@
 
-# Objective: takes a list and makes a new list with the first and the last element.
+# Objective: Takes a list and makes a new list with the first and the last element.
 
 import random
 

@@ -1,4 +1,6 @@
 
+# Objective: Says if a number is odd or even.
+
 print("Write a number and I'll said to you if it is odd or even")
 
 number = int(input("Write your number: "))

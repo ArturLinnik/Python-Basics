@@ -1,5 +1,5 @@
 
-# Objective: asks the user how many Fibonnaci numbers to generate and then generates them.
+# Objective: Asks the user how many Fibonnaci numbers to generate and then generates them.
 
 def get_integer():
     return int(input("Fibonacci numbers to generate: "))

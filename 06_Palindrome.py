@@ -1,5 +1,7 @@
 
-word = str(input("Write a string: "))   # User's input
+# Objective: See if a word is a palindrome or not.
+
+word = str(input("Write a word: "))   # User's input
 
 if word == word[::-1]:  # Reverse word
     print("It's a palindrome")

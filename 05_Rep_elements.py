@@ -3,7 +3,7 @@ import random
 
 # Create 2 random lists
 
-# Objective: take two lists and make a list that contains the elements in common without repetition.
+# Objective: Take two lists and make a list that contains the elements in common without repetition.
 
 list_a = list(random.sample(range(10),random.randint(1,9)))
 list_b = list(random.sample(range(10),random.randint(1,9)))

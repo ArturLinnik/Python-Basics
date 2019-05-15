@@ -1,4 +1,6 @@
 
+# Objective: Make a list with all the even numbers of another list.
+
 list_a = []
 final_list = []
 

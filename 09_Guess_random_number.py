@@ -1,4 +1,6 @@
 
+# Objective: Guess a random generated number.
+
 import random
 
 num_of_attempts = 0

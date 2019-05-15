@@ -50,7 +50,7 @@ def main():
     user_num = int_input("Write the number you want to search for: ")
 
     print(search_number(my_list, user_num))
-
+    
 if __name__ == "__main__":
     main()
 

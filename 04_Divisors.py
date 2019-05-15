@@ -1,4 +1,6 @@
 
+# Objective: Showing the divisors of a number using a while loop.
+
 number = int(input("Write a number and I'll show you the divisor: "))
 
 n = 0

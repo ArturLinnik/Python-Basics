@@ -1,4 +1,6 @@
 
+# Objective: Rock Paper Scissors game vs a computer.
+
 import random
 
 print("Welcome to the 'Rock Paper Scissors' game")

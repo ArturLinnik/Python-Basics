@@ -1,5 +1,5 @@
 
-# Objective: showing the divisors of a number.
+# Objective: Showing the divisors of a number using a for loop.
 
 number = int(input("Write a number and I'll show you its divisors: "))
 
