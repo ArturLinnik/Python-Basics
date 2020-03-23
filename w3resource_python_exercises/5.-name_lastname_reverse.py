@@ -1,3 +1,6 @@
+
+# Inputs first name and last name and prints them in reverse order
+
 first_name = str(input("Write your first name: "))
 second_name = str(input("Write your second name: "))
 
