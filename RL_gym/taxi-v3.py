@@ -1,6 +1,7 @@
 
+import random
+import numpy
 import os
-# from IPython.display import clear_output ### IPython doesn't work for me
 from time import sleep
 import gym
 
@@ -12,56 +13,68 @@ env.render()
 for i,n in env.P[449].items():
     print(i,n)
 
-# {action: [(probability, nextstate, reward, done)]}
+### Training the agent ###
 
-# action --> south, north, east, west, pickup, dropoff
+q_table = numpy.zeros([env.observation_space.n, env.action_space.n]) # .n represents the size 
 
-timesteps = 0
-penalties, reward = 0,0
+# Hyperparameters
 
-frames = [] # for animation
+alpha = 0.1
+gamma = 0.6
+epsilon = 0.1
 
-done = False
+# For plotting metrics
 
-while not done:
-    action = env.action_space.sample() # Randomly executes an action
-    state, reward, done, info = env.step(action)
-
-    if reward == -10:
-        penalties += 1
-
-
-    # Put each rendered frame into dict for animation
-
-    frames.append(
-        {
-        'frame': env.render(mode='ansi'),
-        'state': state,
-        'action': action,
-        'reward': reward
-        }
-    )
-
-    timesteps += 1
-
-print("Timesteps taken:", timesteps)
-print("Penalties taken:", penalties)
+all_timesteps = []
+all_penalties = []
 
 def clear():
     os.system('clear')
 
-def print_frames(frames):
-    for i, frame in enumerate(frames):
-        clear()
-        # clear_output(wait=True) ### IPython doesn't work for me
-        print(frame.get('frame'))
-        print("Timestep:", i + 1)
-        print("State:", frame['state'])
-        print("Action:", frame['action'])
-        print("Reward:", frame['reward'])
-        sleep(.1)
+for i in range(1,100001):
+    state = env.reset()
 
-print_frames(frames)
+    timesteps, penalties, reward = 0, 0, 0
+    done = False
+
+    while not done:
+        if random.uniform(0,1) < epsilon:
+            action = env.action_space.sample() # Explore action space
+        else:
+            action = numpy.argmax(q_table[state]) # Exploit learned values
+
+        next_state, reward, done, info = env.step(action)
+
+        old_value = q_table[state, action]
+        next_max = numpy.max(q_table[next_state])
+
+        new_value = (1 - alpha) * old_value + alpha * (reward + gamma * next_max)
+        q_table[state, action] = new_value
+
+        if reward == -10:
+            penalties += 1
+
+        state = next_state
+        timesteps += 1
+
+    if i % 100 == 0:
+        clear()
+        print("Episode:", i)
+
+print("Training finished. \n")
+
+print(q_table[449])
+
+
+
+
+
+
+
+
+
+
+
 
 
 
