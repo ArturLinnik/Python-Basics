@@ -16,7 +16,7 @@ for i,n in env.P[449].items():
 
 # action --> south, north, east, west, pickup, dropoff
 
-epochs = 0
+timesteps = 0
 penalties, reward = 0,0
 
 frames = [] # for animation
@@ -42,10 +42,10 @@ while not done:
         }
     )
 
-    epochs += 1
+    timesteps += 1
 
-print("Timesteps taken", epochs)
-print("Penalties taken", penalties)
+print("Timesteps taken:", timesteps)
+print("Penalties taken:", penalties)
 
 def clear():
     os.system('clear')
@@ -55,14 +55,13 @@ def print_frames(frames):
         clear()
         # clear_output(wait=True) ### IPython doesn't work for me
         print(frame.get('frame'))
-        print(f"Timestep: {i + 1}")
-        print(f"State: {frame['state']}")
-        print(f"Action: {frame['action']}")
-        print(f"Reward: {frame['reward']}")
+        print("Timestep:", i + 1)
+        print("State:", frame['state'])
+        print("Action:", frame['action'])
+        print("Reward:", frame['reward'])
         sleep(.1)
 
 print_frames(frames)
-
 
 
 
