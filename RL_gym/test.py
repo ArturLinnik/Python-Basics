@@ -13,6 +13,13 @@ print("Action Space:", env.action_space)
 
 print("State pace:", env.observation_space)
 
+state = env.encode(4,2,2,1) # (taxi row, taxi column, passenger index, destination index)
+
+print("State:", state)
+
+env.s = state
+env.render()
+
 
 
 
