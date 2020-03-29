@@ -47,12 +47,7 @@ while running:
 
     # When we jump we do not want to to be able to move up and down
     if not isJump:
-        if keys[pygame.K_UP] and y > vel:
-            y -= vel
-
-        if keys[pygame.K_DOWN] and y < 500 - height - vel:
-            y +=vel
-        
+       
         # Jumping key
         if keys[pygame.K_SPACE]:
             isJump = True
