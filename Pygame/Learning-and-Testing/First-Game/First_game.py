@@ -1,4 +1,13 @@
 
+# pylint: disable = unused-variable
+# pylint: disable = missing-function-docstring
+# pylint: disable = bad-whitespace
+# pylint: disable = invalid-name
+# pylint: disable = missing-module-docstring
+# pylint: disable = line-too-long
+# pylint: disable = global-statement
+# pylint: disable = trailing-whitespace
+
 import pygame
 
 pygame.init()
