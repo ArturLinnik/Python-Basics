@@ -11,27 +11,42 @@ import pygame
 
 pygame.init()
 
+# Window parameters
+
 window = pygame.display.set_mode((500,500))
 
 pygame.display.set_caption("Snake")
 
-# Parameters 
+# Character parameters 
 
 x = 250
 y = 250
 
-width = 25
+width = 25 
 height = 25
 
-vel = 10
+speed = 25
+
+green = (0,255,0)
 
 # Square
+
 def greenSquare():
-    green_square = pygame.draw.rect(window, (0,255,0), (x,y,width,height))
+    green_square = pygame.draw.rect(window, green, (x,y,width,height))
     return green_square
 
 def redrawGameWindow():
     pygame.display.update()
+
+# Axes
+
+x_axis = True
+y_axis = False
+positive = True
+negative = False
+
+axis = x_axis
+sign = positive
 
 # Mainloop
 
@@ -46,19 +61,51 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
     
+    # Changes the movement direction
+
+    if axis == x_axis and sign == positive and x < 500 - width:
+        move = x
+        move += speed
+        x = move
+
+    elif axis == x_axis and sign == negative and x > 0:
+        move = x
+        move -= speed
+        x = move
+
+    elif axis == y_axis and sign == positive and y > 0:
+        move = y
+        move -= speed
+        y = move
+        
+    elif axis == y_axis and sign == negative and y < 500 - height:
+        move = y
+        move += speed
+        y = move
+
+    # Keys pressing
+
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_LEFT]:
-        x -= vel
+    if keys[pygame.K_LEFT] and x > 0:
+        move = x
+        axis = x_axis
+        sign = negative
 
     if keys[pygame.K_RIGHT]:
-        x += vel
+        move = x
+        axis = x_axis
+        sign = positive
 
-    if keys[pygame.K_UP]:
-        y -= vel
+    if keys[pygame.K_UP] and y > 0:
+        move = y
+        axis = y_axis
+        sign = positive
 
     if keys[pygame.K_DOWN]:
-        y += vel
+        move = y
+        axis = y_axis
+        sign = negative
 
     redrawGameWindow()
 
