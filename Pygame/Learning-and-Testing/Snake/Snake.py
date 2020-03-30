@@ -28,12 +28,17 @@ height = 25
 speed = 25
 
 green = (0,255,0)
+red = (255,0,0)
+blue = (0,0,255)
 
-# Square
+# Snake
 
-def greenSquare():
-    green_square = pygame.draw.rect(window, green, (x,y,width,height))
-    return green_square
+def snakeHead(color):
+    snake_head = pygame.draw.rect(window, color, (x,y,width,height))
+
+# def snakeBody(color):
+#     snake_body = pygame.draw.rect(window, color, (x-width,y,width,height))
+#     pygame.time.wait(1000)
 
 def redrawGameWindow():
     pygame.display.update()
@@ -83,6 +88,9 @@ while running:
         move += speed
         y = move
 
+    else:
+        snakeHead(red)
+
     # Keys pressing
 
     keys = pygame.key.get_pressed()
@@ -111,7 +119,8 @@ while running:
 
     window.fill((0,0,0))
 
-    greenSquare()
+    snakeHead(green)
+    # snakeBody(blue)
 
 pygame.quit()
 
