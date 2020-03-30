@@ -35,11 +35,7 @@ blue = (0,0,255)
 
 def snakeHead(color):
     snake_head = pygame.draw.rect(window, color, (x,y,width,height))
-
-# def snakeBody(color):
-#     snake_body = pygame.draw.rect(window, color, (x-width,y,width,height))
-#     pygame.time.wait(1000)
-
+    
 def redrawGameWindow():
     pygame.display.update()
 
@@ -120,7 +116,6 @@ while running:
     window.fill((0,0,0))
 
     snakeHead(green)
-    # snakeBody(blue)
 
 pygame.quit()
 
