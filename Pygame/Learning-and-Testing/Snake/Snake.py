@@ -6,8 +6,10 @@
 # pylint: disable = missing-module-docstring
 # pylint: disable = trailing-whitespace
 # pylint: disable = trailing-newlines
+# pylint: disable = wrong-import-order
 
 import pygame
+import random
 
 pygame.init()
 
@@ -22,32 +24,52 @@ pygame.display.set_caption("Snake")
 x = 250
 y = 250
 
-width = 25 
-height = 25
+width = 10 
+height = 10
 
-speed = 25
+speed = 10
 
-green = (0,255,0)
-red = (255,0,0)
-blue = (0,0,255)
+head_green = (76,187,23)
+body_green = (79,121,66)
+red_snack = (153,26,0)
 
 # Snake
 
-def snakeHead(color):
-    snake_head = pygame.draw.rect(window, color, (x,y,width,height))
+snake_head = [x,y]
+snake_body = [[x,y], [x-width, y], [x-2*width, y]]
+
+# Initial moving direction
+
+direction = "RIGHT"
+change = direction
+
+# Snacks
+
+def snack():
+
+    random_number1 = random.randrange(0,500,10)
+    random_number2 = random.randrange(0,500,10)
+
+    my_snack = False
     
-def redrawGameWindow():
-    pygame.display.update()
+    # For the snacks to don't appear on the snake
 
-# Axes
+    while not my_snack:
 
-x_axis = True
-y_axis = False
-positive = True
-negative = False
+        if random_number1 != snake_head[0] and random_number2 != snake_head[1]:
+            my_snack_x = random_number1
+            my_snack_y = random_number2
+            my_snack = True
 
-axis = x_axis
-sign = positive
+        else:
+            random_number1 = random.randrange(0,500,10)
+            random_number2 = random.randrange(0,500,10)
+
+    return my_snack_x, my_snack_y
+
+# Initial snack
+
+snack_x, snack_y = snack()
 
 # Mainloop
 
@@ -61,63 +83,92 @@ while running:
         if event.type == pygame.KEYDOWN: 
             if event.key == pygame.K_ESCAPE:
                 running = False
-    
-    # Changes the movement direction
-
-    if axis == x_axis and sign == positive and x < 500 - width:
-        move = x
-        move += speed
-        x = move
-
-    elif axis == x_axis and sign == negative and x > 0:
-        move = x
-        move -= speed
-        x = move
-
-    elif axis == y_axis and sign == positive and y > 0:
-        move = y
-        move -= speed
-        y = move
-        
-    elif axis == y_axis and sign == negative and y < 500 - height:
-        move = y
-        move += speed
-        y = move
-
-    else:
-        snakeHead(red)
 
     # Keys pressing
 
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_LEFT] and x > 0:
-        move = x
-        axis = x_axis
-        sign = negative
+    if keys[pygame.K_LEFT]:
+        change = "LEFT"
 
     if keys[pygame.K_RIGHT]:
-        move = x
-        axis = x_axis
-        sign = positive
+        change = "RIGHT"
 
-    if keys[pygame.K_UP] and y > 0:
-        move = y
-        axis = y_axis
-        sign = positive
+    if keys[pygame.K_UP]:
+        change = "UP"
 
     if keys[pygame.K_DOWN]:
-        move = y
-        axis = y_axis
-        sign = negative
+        change = "DOWN"
 
-    redrawGameWindow()
+    # Changes the movement direction and prohibits going backwards
 
-    window.fill((0,0,0))
+    if change == "RIGHT" and direction != "LEFT":
+        direction = "RIGHT"
 
-    snakeHead(green)
+    elif change == "LEFT" and direction != "RIGHT":
+        direction = "LEFT"
+
+    elif change == "UP" and direction != "DOWN":
+        direction = "UP"
+        
+    elif change == "DOWN" and direction != "UP":
+        direction = "DOWN"
+
+    # Moves the snake and breaks if touches the border
+
+    if direction == "RIGHT" and snake_head[0] < 500-width:
+        snake_head[0] += speed
+
+    elif direction == "LEFT" and snake_head[0] > 0:
+        snake_head[0] -= speed
+
+    elif direction == "UP" and snake_head[1] > 0:
+        snake_head[1] -= speed
+        
+    elif direction == "DOWN" and snake_head[1] < 500-height:
+        snake_head[1] += speed
+
+    else:
+        break
+
+    # Breaks when head is touching body
+
+    if snake_head in snake_body[1:]:
+        break
+
+    # Creates and deletes the body in the screen
+
+    snake_body.insert(0, list(snake_head))
+    snake_body.pop()
+
+    window.fill((0,0,0))    # Black background
+
+    # Snake's head
+
+    pygame.draw.rect(window, head_green, (snake_head[0],snake_head[1], width, height))
+
+    # Snake's body
+
+    for index in snake_body[1:]:
+        pygame.draw.rect(window, body_green, pygame.Rect(index[0], index[1], width, height))
+
+    # Snacks
+
+    if snack_x == snake_head[0] and snack_y == snake_head[1]:
+        snack_x, snack_y = snack()
+        pygame.draw.rect(window, red_snack, (snack_x, snack_y, width, height))
+        snake_body.insert(0, list(snake_head))
+
+    pygame.draw.rect(window, red_snack, (snack_x, snack_y, width, height))
+
+    # Updating the screen
+
+    pygame.display.update()
 
 pygame.quit()
+
+
+
 
 
 
