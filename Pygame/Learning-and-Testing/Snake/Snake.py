@@ -50,16 +50,18 @@ def snack():
     random_number1 = random.randrange(0,500,10)
     random_number2 = random.randrange(0,500,10)
 
-    my_snack = False
+    approved_snack = False
     
     # For the snacks to don't appear on the snake
 
-    while not my_snack:
+    while not approved_snack:
 
-        if random_number1 != snake_head[0] and random_number2 != snake_head[1]:
-            my_snack_x = random_number1
-            my_snack_y = random_number2
-            my_snack = True
+        my_snack = [random_number1, random_number2]
+
+        if my_snack not in snake_body:
+            my_snack_x = my_snack[0]
+            my_snack_y = my_snack[1]
+            approved_snack = True
 
         else:
             random_number1 = random.randrange(0,500,10)
