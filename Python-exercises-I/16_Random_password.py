@@ -5,8 +5,8 @@ import random
 
 # Creating lists of every type of elements
 
-alph_list = [chr(letter) for letter in range(97,123)]
-alphList = [chr(letter) for letter in range(65,91)]
+alph_list = [chr(character) for character in range(97,123)]
+alphList = [chr(character) for character in range(65,91)]
 
 num_list = [num for num in range(10)]
 
